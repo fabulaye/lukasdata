@@ -1,0 +1,41 @@
+import subprocess
+import os
+
+git_dir="C:/Users/lukas/Documents/GitHub/lukasdata"
+os.chdir(git_dir)
+
+build_command="python -m build"
+
+
+#os.listdir(git_dir+"/dist")
+
+#bei twine die version 
+
+def change_version(version):
+    content=[]
+    with open(git_dir+"/setup.py","r") as setup:
+        for line in setup:
+            if line.startswith("    version"):
+                line=f"    version={version}\n"
+                content.append(line)
+                print(f"version changed to {version}")
+            else:
+                content.append(line)
+    print(content)
+    with open(git_dir+"/setup.py","w") as file:
+        file.writelines(content)
+    
+
+def update_lukasdata(version,commit_message):
+    subprocess.run(build_command)
+    change_version(version)
+    subprocess.run("git add .")
+    subprocess.run(f"git commit -m {commit_message}")
+    subprocess.run("git push origin * main") #hier bin ich nicht sicher
+    tar_file="lukasdata-"+version+".tar.gz"
+    subprocess.run(f"twine upload dist\\{tar_file}")
+
+
+
+
+update_lukasdata("1.2.5","new_version")
