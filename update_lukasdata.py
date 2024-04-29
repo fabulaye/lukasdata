@@ -32,7 +32,7 @@ def update_lukasdata(version,commit_message):
     subprocess.run("git add .")
     subprocess.run(f"git commit -m {commit_message}")
     subprocess.run("git push origin * main") #hier bin ich nicht sicher
-    tar_file="lukasdata-"+version+".tar.gz"
+    tar_file="lukasdata-"+version+".tar"
     subprocess.run(f"twine upload dist\\{tar_file}")
 
 
