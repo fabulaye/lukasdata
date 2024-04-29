@@ -1,4 +1,4 @@
-def get_list_intersection(list_of_lists):
+def get_list_intersection(list_of_lists:list):
     intersection_list=[]
     for index,List in enumerate(list_of_lists):
         if index==0:
