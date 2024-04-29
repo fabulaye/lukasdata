@@ -16,7 +16,7 @@ def change_version(version):
     with open(git_dir+"/setup.py","r") as setup:
         for line in setup:
             if line.startswith("    version"):
-                line=f"    version={version},\n"
+                line=f"    version='{version}',\n"
                 content.append(line)
                 print(f"version changed to {version}")
             else:
