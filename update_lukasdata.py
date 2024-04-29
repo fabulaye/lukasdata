@@ -27,12 +27,13 @@ def change_version(version):
     
 
 def update_lukasdata(version,commit_message):
+    os.chdir(git_dir)
     subprocess.run(build_command)
     change_version(version)
     subprocess.run("git add .")
     subprocess.run(f"git commit -m {commit_message}")
     subprocess.run("git push origin * main") #hier bin ich nicht sicher
-    tar_file="lukasdata-"+version+".tar"
+    tar_file="lukasdata-"+version+".tar.gz"
     subprocess.run(f"twine upload dist\\{tar_file}")
 
 
