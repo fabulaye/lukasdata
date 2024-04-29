@@ -37,7 +37,7 @@ def update_lukasdata(version,commit_message):
     wheel="lukasdata-"+version+"-py3-none-any.whl"
     subprocess.run(f"twine upload dist\\{tar_file}")
     subprocess.run(f"twine upload dist\\{wheel}")
-    subprocess.run("pip install --upgrade lukasdata")
+    #subprocess.run("pip install --upgrade lukasdata")
 
 
-update_lukasdata("1.2.6","new_version")
+update_lukasdata("1.2.7","new_version")
