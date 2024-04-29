@@ -34,9 +34,10 @@ def update_lukasdata(version,commit_message):
     subprocess.run(f"git commit -m {commit_message}")
     subprocess.run("git push origin * main") #hier bin ich nicht sicher
     tar_file="lukasdata-"+version+".tar.gz"
+    wheel="lukasdata-"+version+"-py3-none-any.whl"
     subprocess.run(f"twine upload dist\\{tar_file}")
+    subprocess.run(f"twine upload dist\\{wheel}")
+    subprocess.run("pip install --upgrade lukasdata")
 
 
-
-
-update_lukasdata("1.2.5","new_version")
+update_lukasdata("1.2.6","new_version")
