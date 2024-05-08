@@ -40,4 +40,4 @@ def update_lukasdata(version,commit_message):
     #subprocess.run("pip install --upgrade lukasdata")
 
 
-update_lukasdata("1.2.7","new_version")
+update_lukasdata("1.2.8","new_version")

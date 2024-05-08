@@ -1,6 +1,8 @@
 setup.py
 lukasdata/__init__.py
+lukasdata/analyze_datasets.py
 lukasdata/change_directory.py
+lukasdata/check_for_all_zeroes.py
 lukasdata/concat_dfs.py
 lukasdata/count_nans.py
 lukasdata/create_mask.py
@@ -8,12 +10,16 @@ lukasdata/del_jpg.py
 lukasdata/determine_file_type.py
 lukasdata/dict_to_json.py
 lukasdata/drop_column_with_na.py
+lukasdata/drop_columns_permutation_score.py
 lukasdata/get_list_intersection.py
 lukasdata/get_number_columns.py
 lukasdata/json_to_dict.py
+lukasdata/keras_input.py
 lukasdata/list_to_string.py
 lukasdata/mean_impute.py
 lukasdata/na_counts.py
+lukasdata/order_dict.py
+lukasdata/permutation_importance.py
 lukasdata/plot_metric_history.py
 lukasdata/string_to_text.py
 lukasdata.egg-info/PKG-INFO
