@@ -26,19 +26,36 @@ def change_version(version):
         file.writelines(content)
     
 
+
+def catch_error(result):
+    if result.returncode != 0:
+        print(f"{result} Error: {result.stderr}")
+
 def update_lukasdata(version,commit_message):
     os.chdir(git_dir)
-    change_version(version)
-    subprocess.run(build_command)
-    subprocess.run("git add -u")
-    subprocess.run("git add --all")
-    subprocess.run(f"git commit -m {commit_message}")
+    #change_version(version)
+    #subprocess.run(build_command)
+    print("add_u")
+    add_u=subprocess.run("git add -u", capture_output=True,text=True)
+    print(add_u.stderr)
+    catch_error(add_u)
+    print("add_all")
+    add_all=subprocess.run("git add .",capture_output=True,text=True)
+    print(add_all.stderr)
+    catch_error(add_all)
+    #subprocess.run("git diff --cached")
+    print("commit")
+    commit=subprocess.run(f"git commit -m {commit_message}")
+    print(commit.stderr)
+    catch_error(commit)
     subprocess.run("git push origin * main") #hier bin ich nicht sicher
-    tar_file="lukasdata-"+version+".tar.gz"
-    wheel="lukasdata-"+version+"-py3-none-any.whl"
-    subprocess.run(f"twine upload dist\\{tar_file}")
-    subprocess.run(f"twine upload dist\\{wheel}")
-    #subprocess.run("pip install --upgrade lukasdata")
+    #tar_file="lukasdata-"+version+".tar.gz"
+    #wheel="lukasdata-"+version+"-py3-none-any.whl"
+    #subprocess.run(f"twine upload dist\\{tar_file}")
+    #subprocess.run(f"twine upload dist\\{wheel}")
+    
 
 
-update_lukasdata("1.3.1","changed package structure")
+
+
+update_lukasdata("1.3.1","changed")
