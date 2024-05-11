@@ -33,10 +33,10 @@ def catch_error(result):
 
 def update_lukasdata(version,commit_message):
     os.chdir(git_dir)
-    #change_version(version)
-    #subprocess.run(build_command)
-    #print("add_u")
-    #add_u=subprocess.run("git add -u", capture_output=True,text=True)
+    change_version(version)
+    subprocess.run(build_command)
+    print("add_u")
+    add_u=subprocess.run("git add -u", capture_output=True,text=True)
     #print(add_u.stderr)
     #catch_error(add_u)
     print("add_all")
@@ -49,10 +49,10 @@ def update_lukasdata(version,commit_message):
     print(commit.stderr)
     catch_error(commit)
     subprocess.run("git push origin * main") #hier bin ich nicht sicher
-    #tar_file="lukasdata-"+version+".tar.gz"
-    #wheel="lukasdata-"+version+"-py3-none-any.whl"
-    #subprocess.run(f"twine upload dist\\{tar_file}")
-    #subprocess.run(f"twine upload dist\\{wheel}")
+    tar_file="lukasdata-"+version+".tar.gz"
+    wheel="lukasdata-"+version+"-py3-none-any.whl"
+    subprocess.run(f"twine upload dist\\{tar_file}")
+    subprocess.run(f"twine upload dist\\{wheel}")
     
 
 update_lukasdata("1.3.4","\"added 2init\"")
