@@ -30,7 +30,8 @@ def update_lukasdata(version,commit_message):
     os.chdir(git_dir)
     change_version(version)
     subprocess.run(build_command)
-    subprocess.run("git add .")
+    subprocess.run("git add -u")
+    subprocess.run("git add --all")
     subprocess.run(f"git commit -m {commit_message}")
     subprocess.run("git push origin * main") #hier bin ich nicht sicher
     tar_file="lukasdata-"+version+".tar.gz"
@@ -40,4 +41,4 @@ def update_lukasdata(version,commit_message):
     #subprocess.run("pip install --upgrade lukasdata")
 
 
-update_lukasdata("1.2.8","new_version")
+update_lukasdata("1.3.1","changed package structure")

@@ -5,10 +5,9 @@ from sklearn.model_selection import train_test_split
 class keras_input():
     def __init__(self,df) -> None:
         self.df=df
-        self.array=np.array(df)
-        self.grouped_df=None
+        self.grouped_df=self.create_grouped("idnr")
+        self.array=None
         self.padded_sequences=None
-        self.y=None
         self.x_train=None
         self.x_test=None
         self.y_train=None
@@ -41,8 +40,12 @@ class keras_input():
         self.padded_sequences = tf.keras.preprocessing.sequence.pad_sequences(self.array, maxlen=max_len, padding='post', truncating='post') 
     def train_test_split(self):
         self.x_train,self.x_test,self.y_train,self.y_test=train_test_split(self.padded_sequences,self.y,test_size=0.33)
-
-        
+    def init_input(self,group_name="idnr",entry_len=10,y_column_name="subsidized"):
+        self.create_grouped(group_name)
+        self.create_array_from_grouped_df()
+        self.create_y(y_column_name,entry_len)
+        self.padding(entry_len)
+        self.train_test_split()
 
 
 
