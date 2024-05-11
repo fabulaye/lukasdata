@@ -35,10 +35,10 @@ def update_lukasdata(version,commit_message):
     os.chdir(git_dir)
     #change_version(version)
     #subprocess.run(build_command)
-    print("add_u")
-    add_u=subprocess.run("git add -u", capture_output=True,text=True)
-    print(add_u.stderr)
-    catch_error(add_u)
+    #print("add_u")
+    #add_u=subprocess.run("git add -u", capture_output=True,text=True)
+    #print(add_u.stderr)
+    #catch_error(add_u)
     print("add_all")
     add_all=subprocess.run("git add .",capture_output=True,text=True)
     print(add_all.stderr)
@@ -55,7 +55,4 @@ def update_lukasdata(version,commit_message):
     #subprocess.run(f"twine upload dist\\{wheel}")
     
 
-
-
-
-update_lukasdata("1.3.1","changed")
+update_lukasdata("1.3.4","\"added 2init\"")
