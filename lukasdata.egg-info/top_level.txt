@@ -1,5 +1,6 @@
 cleaning
-datahandler
+datahandling
+errorhandling
 exploration
 machine_learning
 manipulation

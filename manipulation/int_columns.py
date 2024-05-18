@@ -10,6 +10,7 @@ def filter_numeric_columns(df):
             new_df[column_name]=column
             print(column_name)
         except ValueError:
-            print(f"{column_name} can't be converted to numeric")
+            None
+            #print(f"{column_name} can't be converted to numeric")
     return new_df
 
