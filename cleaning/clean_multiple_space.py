@@ -1,6 +1,9 @@
+import regex as re
+
 
 def clean_multiple_space(string):
-    multiple_space_list=["   ","  "]
-    for spaces in multiple_space_list:
-        string=string.replace(spaces," ")
+    regex=re.compile("\s{2,}")
+    search=regex.findall(string)
+    for item in search:
+        string=string.replace(item," ")
     return string
