@@ -8,6 +8,7 @@ cleaning/my_strip.py
 cleaning/na_counts.py
 cleaning/order_dict_by_key.py
 cleaning/replace_umlaut.py
+cleaning/rstrip_list.py
 datahandling/__init__.py
 datahandling/change_directory.py
 datahandling/change_encoding.py

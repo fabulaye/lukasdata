@@ -55,4 +55,4 @@ def update_lukasdata(version,commit_message):
     subprocess.run(f"twine upload dist\\{wheel}")
     
 
-update_lukasdata("1.3.7","\"cleaned a bit\"")
+update_lukasdata("1.3.8","\"cleaned a bit\"")
