@@ -4,9 +4,13 @@ cleaning/check_for_all_zeroes.py
 cleaning/clean_multiple_space.py
 cleaning/drop_column_with_na.py
 cleaning/mean_impute.py
+cleaning/my_strip.py
 cleaning/na_counts.py
+cleaning/order_dict_by_key.py
+cleaning/replace_umlaut.py
 datahandling/__init__.py
 datahandling/change_directory.py
+datahandling/change_encoding.py
 datahandling/check_for_mismatches_in_list.py
 datahandling/create_text_for_all_files_in_pdf_dir.py
 datahandling/deconstruct_file_name.py
@@ -34,6 +38,7 @@ lukasdata.egg-info/top_level.txt
 machine_learning/__init__.py
 machine_learning/drop_columns_permutation_score.py
 machine_learning/keras_input.py
+machine_learning/missing_forest.py
 machine_learning/ml_model.py
 machine_learning/permutation_importance.py
 manipulation/__init__.py
