@@ -1,21 +1,34 @@
 import os
-def chdir_bachelor():
-      os.chdir("C:/Users/lukas/Desktop/bachelor")
+import getpass
 
-def chdir_data():
-      os.chdir("C:/Users/lukas/Desktop/bachelor/data")
+username = getpass.getuser()
+print(username)
 
-def chdir_pdf():
-      os.chdir("C:/Users/lukas/Desktop/bachelor/pdf") 
+def chdir_bachelor(username):
+      os.chdir(f"C:/Users/{username}/Desktop/bachelor")
 
-def chdir_auth():
-      os.chdir("C:/Users/lukas/Desktop/bachelor/auth")    
+def chdir_data(username):
+      os.chdir(f"C:/Users/{username}/Desktop/bachelor/data")
 
-def chdir_txt():
-      os.chdir("C:/Users/lukas/Desktop/bachelor/txt")    
+def chdir_sql(username):
+      if username == "lukas":
+            os.chdir("E:\sql")
+      if username=="Lukas":
+            os.chdir("C:\sql")
+      
+      
 
-def chdir_fig():
-      os.chdir("C:/Users/lukas/Desktop/bachelor/data/figures")          
+def chdir_pdf(username):
+      os.chdir(f"C:/Users/{username}/Desktop/bachelor/pdf") 
+
+def chdir_auth(username):
+      os.chdir(f"C:/Users/{username}/Desktop/bachelor/auth")    
+
+def chdir_txt(username):
+      os.chdir(f"C:/Users/{username}/Desktop/bachelor/txt")    
+
+def chdir_fig(username):
+      os.chdir(f"C:/Users/{username}/Desktop/bachelor/data/figures")          
 
 def switch_dir(type):
       if type =="pdf":
