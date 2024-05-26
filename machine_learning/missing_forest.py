@@ -1,11 +1,11 @@
 import pandas as pd
-from lukasdata.change_directory import chdir_data
+from datahandling.change_directory import chdir_data
 chdir_data()
 
-from lukasdata.count_nans import count_nan
-from lukasdata.drop_column_with_na import drop_column_with_na
-from lukasdata.mean_impute import mean_impute
-from lukasdata.get_number_columns import filter_numeric_columns
+from exploration.count_nans import count_nan
+from cleaning.drop_column_with_na import drop_column_with_na
+import mean_impute
+from manipulation.filter_numeric_columns import filter_numeric_columns
 from sklearn.metrics import mean_squared_error
 
 def reorder_columns_by_na(df):
@@ -18,10 +18,10 @@ def reorder_columns_by_na(df):
     return new_df
 
 
-complete_financial=pd.read_csv("complete_financial.csv")
+#complete_financial=pd.read_csv("complete_financial.csv")
 
 
-complete_financial_numerical=filter_numeric_columns(complete_financial)
+#complete_financial_numerical=filter_numeric_columns(complete_financial)
 
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
@@ -69,11 +69,12 @@ class MissForestImputer:
         print(self.X)
         mse_df=pd.DataFrame(mse_list)
         return self.X
+
     
 
 
-imputer = MissForestImputer()
-X_imputed = imputer.fit_transform(complete_financial_numerical)
-X_imputed.insert(loc=1,value=complete_financial["idnr"],column="idnr")
-X_imputed.set_index("idnr")
-X_imputed.to_csv("rf_imputed.csv")
+#imputer = MissForestImputer()
+#X_imputed = imputer.fit_transform(complete_financial_numerical)
+#X_imputed.insert(loc=1,value=complete_financial["idnr"],column="idnr")
+#X_imputed.set_index("idnr")
+#X_imputed.to_csv("rf_imputed.csv")

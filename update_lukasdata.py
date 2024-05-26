@@ -1,5 +1,6 @@
 import subprocess
 import os
+import json
 
 git_dir="C:/Users/lukas/Documents/GitHub/lukasdata"
 os.chdir(git_dir)
@@ -53,6 +54,12 @@ def update_lukasdata(version,commit_message):
     wheel="lukasdata-"+version+"-py3-none-any.whl"
     subprocess.run(f"twine upload dist\\{tar_file}")
     subprocess.run(f"twine upload dist\\{wheel}")
-    
 
-update_lukasdata("1.3.9","\"chdir change\"")
+
+version=subprocess.run("pip show lukasdata",capture_output=True,text=True).stdout
+version=version.split("\n")[1]
+version_prompt=f"Enter Version. Currently {version}: "
+version_input=input(version_prompt)
+print(version_input)
+commit_message=input("Enter Commit Message: ")
+update_lukasdata(version_input,f"\"{commit_message}\"")
