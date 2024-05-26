@@ -1,7 +1,7 @@
 import pandas as pd
 from datahandling.change_directory import chdir_data
 
-def drop_na_columns(df : pd.DataFrame,min_na_percentage: float=1):
+def drop_nan_columns(df : pd.DataFrame,min_na_percentage: float=1):
     #should I copy here?
     bool_df=df.notna()
     print(bool_df.columns)

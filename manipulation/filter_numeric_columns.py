@@ -4,13 +4,12 @@ def filter_numeric_columns(df):
     new_df=pd.DataFrame()
     for column_name in columns:
         column=df[column_name]
-        first_value=column[0]
         try:
-            pd.to_numeric(df[column_name])
+            pd.to_numeric(column)
             new_df[column_name]=column
             print(column_name)
         except ValueError:
             None
-            #print(f"{column_name} can't be converted to numeric")
+            print(f"{column_name} can't be converted to numeric")
     return new_df
 

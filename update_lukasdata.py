@@ -27,7 +27,6 @@ def change_version(version):
         file.writelines(content)
     
 
-
 def catch_error(result):
     if result.returncode != 0:
         print(f"{result} Error: {result.stderr}")
@@ -55,11 +54,14 @@ def update_lukasdata(version,commit_message):
     subprocess.run(f"twine upload dist\\{tar_file}")
     subprocess.run(f"twine upload dist\\{wheel}")
 
+def main():
+    version=subprocess.run("pip show lukasdata",capture_output=True,text=True).stdout
+    version=version.split("\n")[1]
+    version_prompt=f"Enter Version. Currently {version}: "
+    version_input=input(version_prompt)
+    print(version_input)
+    commit_message=input("Enter Commit Message: ")
+    update_lukasdata(version_input,f"\"{commit_message}\"")
 
-version=subprocess.run("pip show lukasdata",capture_output=True,text=True).stdout
-version=version.split("\n")[1]
-version_prompt=f"Enter Version. Currently {version}: "
-version_input=input(version_prompt)
-print(version_input)
-commit_message=input("Enter Commit Message: ")
-update_lukasdata(version_input,f"\"{commit_message}\"")
+if __name__ == "__main__":
+    main()
