@@ -4,7 +4,7 @@ chdir_data()
 
 from exploration.count_nans import count_nan
 from cleaning.drop_column_with_na import drop_nan_columns
-import mean_impute
+from machine_learning.mean_impute import mean_impute
 from manipulation.filter_numeric_columns import filter_numeric_columns
 from sklearn.metrics import mean_squared_error
 
@@ -32,7 +32,8 @@ class MissForestImputer:
         na_bool_df=self.X.isna()
         self.X=mean_impute(self.X)
         mse_list=[]
-        for _ in range(self.max_iter):
+        for i in range(self.max_iter):
+            print(i)
             for feature_idx in range(self.X.shape[1]): #hier eigentlich sortieren nachdem was wir am häufigsten haben
                 missing_mask = na_bool_df.iloc[:,feature_idx]
                 X_train = self.X[~missing_mask]
@@ -44,12 +45,10 @@ class MissForestImputer:
                 rf.fit(X_train, y_train)
                 predicted_values = rf.predict(self.X.iloc[:,:])
                 self.X.iloc[missing_mask, feature_idx] = predicted_values[missing_mask]
-        print(self.X)
-        mse_df=pd.DataFrame(mse_list)
         return self.X
     def run_miss_forest(self,df):
         df_index=df.index
-        df_dropped=drop_na_columns(df,0.5)
+        df_dropped=drop_nan_columns(df,0.5)
         df_dropped_numerical=filter_numeric_columns(df_dropped)
         self.imputed=self.fit_transform(df_dropped_numerical)
         self.imputed.insert(loc=1,value=df_index[0],column="idnr")#loc1?
