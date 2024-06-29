@@ -1,13 +1,23 @@
 import pandas as pd
 
 
-def create_in_mask(mask_series,series_2,in_bool=True):
-    mask=[]
-    if type(series_2)==pd.Series:
-        series_2=series_2.to_list()
-    for entry in mask_series:
-        if entry in series_2:
-            mask.append(in_bool)
+def create_in_mask(iterable1, iterable2, case_sensitive=True):
+
+    if not case_sensitive:
+        if isinstance(iterable1, pd.Series):
+            iterable1 = iterable1.str.lower()
         else:
-            mask.append(not in_bool)
+            iterable1 = [str(i).lower() for i in iterable1]
+        
+        if isinstance(iterable2, pd.Series):
+            iterable2 = iterable2.str.lower()
+        else:
+            iterable2 = [str(i).lower() for i in iterable2]
+    else:
+        if not isinstance(iterable1, pd.Series):
+            iterable1 = [str(i) for i in iterable1]
+        
+        if not isinstance(iterable2, pd.Series):
+            iterable2 = [str(i) for i in iterable2]
+    mask = [element in iterable2 for element in iterable1]
     return mask

@@ -9,6 +9,9 @@ def chdir_bachelor():
 def chdir_data():
       os.chdir(f"C:/Users/{username}/Desktop/bachelor/data")
 
+def chdir_id():
+      os.chdir(f"C:/Users/{username}/Desktop/bachelor/data/id")
+
 def chdir_sql():
       if username == "lukas":
             os.chdir("E:\sql")
