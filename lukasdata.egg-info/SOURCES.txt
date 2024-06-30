@@ -41,7 +41,9 @@ machine_learning/drop_columns_permutation_score.py
 machine_learning/keras_input.py
 machine_learning/mean_impute.py
 machine_learning/missing_forest.py
+machine_learning/missing_forest_cross_validation.py
 machine_learning/ml_model.py
+machine_learning/my_logs.py
 machine_learning/permutation_importance.py
 manipulation/__init__.py
 manipulation/concat_dfs.py
