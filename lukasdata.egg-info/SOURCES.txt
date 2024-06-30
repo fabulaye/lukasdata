@@ -26,7 +26,7 @@ datahandling/string_to_text.py
 errorhandling/__init__.py
 errorhandling/custom_errors.py
 exploration/__init__.py
-exploration/analyze_datasets.py
+exploration/analyze_dataframes.py
 exploration/count_nans.py
 exploration/desciptive_statistics.py
 exploration/get_list_intersection.py
