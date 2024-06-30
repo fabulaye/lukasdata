@@ -46,9 +46,9 @@ class MissForestImputer:
                 predicted_values = rf.predict(self.X.iloc[:,:])
                 self.X.iloc[missing_mask, feature_idx] = predicted_values[missing_mask]
         return self.X
-    def run_miss_forest(self,df,insert_id=True):
+    def run_miss_forest(self,df,insert_id=True,missing_percent=0.5):
         df_index=df.index
-        df_dropped=drop_nan_columns(df,0.5)
+        df_dropped=drop_nan_columns(df,missing_percent)
         df_dropped_numerical=filter_numeric_columns(df_dropped)
         self.imputed=self.fit_transform(df_dropped_numerical)
         if insert_id==True:
