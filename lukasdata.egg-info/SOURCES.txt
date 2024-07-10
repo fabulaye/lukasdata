@@ -3,6 +3,7 @@ cleaning/__init__.py
 cleaning/check_for_all_zeroes.py
 cleaning/clean_multiple_space.py
 cleaning/drop_column_with_na.py
+cleaning/drop_observations.py
 cleaning/my_strip.py
 cleaning/na_counts.py
 cleaning/order_dict_by_key.py
