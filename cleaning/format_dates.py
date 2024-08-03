@@ -15,10 +15,9 @@ def get_months(date):
     months=date.month
     return months
 
-def get_year(date):
+def get_year(date,date_format="%d.%m.%Y"):
     date=str(date)
-    date_format = "%d.%m.%Y"
-    date=datetime.strptime(date,date_format)
+    date=datetime.datetime.strptime(date,date_format)
     year=date.year
     year=int(year)
     
