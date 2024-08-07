@@ -14,3 +14,5 @@ def filter_numeric_columns(df):
             print(f"{column_name} can't be converted to numeric")
     return new_df,dropped_columns
 
+
+
