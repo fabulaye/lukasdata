@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 def calculate_months_between(d1, d2):
     date_format = "%d.%m.%Y"
@@ -17,7 +17,7 @@ def get_months(date):
 
 def get_year(date,date_format="%d.%m.%Y"):
     date=str(date)
-    date=datetime.datetime.strptime(date,date_format)
+    date=datetime.strptime(date,date_format)
     year=date.year
     year=int(year)
     

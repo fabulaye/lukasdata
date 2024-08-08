@@ -6,10 +6,9 @@ from datahandling.change_directory import chdir_sql_requests
 from cleaning.drop_column_with_na import drop_nan_columns
 from sklearn.preprocessing import StandardScaler
 
-
-def calculate_mae_for_imputation(data,imputer,missing_rate=0.1,random_state=None):
+def calculate_mae_for_imputation(data,imputer,missing_rate=0.1,random_state=None,max_na=0.5):
     data = data.select_dtypes(include=[np.number,int,float])
-    data=drop_nan_columns(data,0.3)
+    data=drop_nan_columns(data,max_na)
     df=data.copy()
     np.random.seed(random_state)
     data = np.array(data)
@@ -72,7 +71,9 @@ def repeat_validation(df,imputer,iterations,missing_rate=0.1):
     return mae_df_agg,mae_df
 
 
-def return_bad_imputations(metric_df):
-    metric_df_agg=metric_df.agg("mean").sort_values()
-    bad_imputations=metric_df_agg[metric_df_agg>=0.5]
+
+def return_bad_imputations(metric_df,maximum_metric):
+    #metric_df_agg=metric_df.agg("mean").sort_values()
+    bad_imputations=metric_df[metric_df>=maximum_metric]
     return bad_imputations
+
