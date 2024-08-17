@@ -20,5 +20,4 @@ def get_year(date,date_format="%d.%m.%Y"):
     date=datetime.strptime(date,date_format)
     year=date.year
     year=int(year)
-    
     return year
