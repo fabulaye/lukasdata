@@ -9,7 +9,12 @@ def list_to_string(list):
 def list_difference(list_1, list_2):
     return [item for item in list_1 if item not in list_2]
 
-
+def rstrip_list(iterable):
+    list=[]
+    for string in iterable:
+        string=str(string)
+        list.append(string.rstrip())
+    return list
 
 def upper_list(lst):
     lst=list(map(lambda x: x.upper(),lst))
