@@ -6,6 +6,8 @@ git_dir="C:/Users/lukas/Documents/GitHub/lukasdata"
 os.chdir(git_dir)
 
 build_command="python -m build"
+setup_command="python setup.py sdist"
+setup_whl="python setup.py bdist_wheel"
 
 
 #os.listdir(git_dir+"/dist")
@@ -34,7 +36,7 @@ def catch_error(result):
 def update_lukasdata(version,commit_message):
     os.chdir(git_dir)
     change_version(version)
-    subprocess.run(build_command)
+    subprocess.run(setup_command)
     print("add_u")
     add_u=subprocess.run("git add -u", capture_output=True,text=True)
     #print(add_u.stderr)
