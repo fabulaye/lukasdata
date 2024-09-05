@@ -15,4 +15,6 @@ def change_encoding(input_csv,output_csv):
     with open(output_csv, 'w', encoding='utf-8') as f:
         f.write(content)
 
-change_encoding("C:/Users/lukas/Desktop/bachelor/data/suchliste.csv","C:/Users/lukas/Desktop/bachelor/data/suchliste_utf8.csv")
+
+
+change_encoding(r"C:\Users\lukas\Desktop\bachelor\data\map.csv",r"C:\Users\lukas\Desktop\bachelor\data\map.csv")

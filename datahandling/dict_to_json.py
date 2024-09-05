@@ -18,6 +18,8 @@ def dict_to_json_newline(data, filename,directory):
     """
     os.chdir(directory)
     with open(filename, "w", encoding="utf-8") as json_file:
+        json_file.write("{")
         for key, value in data.items():
-            json_line = json.dumps({key: value})
+            json_line = json.dumps(f"{key}:{value},")
             json_file.write(json_line + '\n')
+        json_file.write("}")
