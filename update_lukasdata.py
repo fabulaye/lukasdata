@@ -37,6 +37,7 @@ def update_lukasdata(version,commit_message):
     os.chdir(git_dir)
     change_version(version)
     subprocess.run(setup_command)
+    subprocess.run(setup_whl)
     print("add_u")
     add_u=subprocess.run("git add -u", capture_output=True,text=True)
     #print(add_u.stderr)

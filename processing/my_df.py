@@ -1,31 +1,38 @@
+#building a df subclass?
 import pandas as pd
+import numpy as np
+from sklearn.impute import KNNImputer
+
 from datahandling.change_directory import chdir_sql_requests
 
-#building a df subclass?
+import pandas as pd
+
+
 
 class mydf(pd.DataFrame):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self,df) -> None:
+        super().__init__(df)
         self.dropped_columns=None
-    def filter_numeric_columns(self,inplace=False):
-        columns=self.columns
-        new_df=mydf()
-        dropped_columns=[]
-        for column_name in columns:
-            column=self[column_name]
-            try:
-                pd.to_numeric(column)
-                if inplace==False:
-                    new_df[column_name]=column
-                if inplace==True:
-                    self[column_name]=column
-            except ValueError:
-                dropped_columns.append(column_name)
+    def to_numeric(self,inplace=False):
+        num_cols=self.numeric_cols()
         if inplace==False:
-            new_df.dropped_columns=dropped_columns
-            return new_df
-        if inplace==True:
-            self.dropped_columns=dropped_columns
+            copy=self[num_cols].astype(float)
+            return copy
+        elif inplace==True:
+            self[num_cols]=self[num_cols].astype(float)
+    def knn_impute(self,n_neighbors=3):
+        self.drop_nan_columns(0.7,inplace=True)
+        numeric_cols=self.numeric_cols() #vielleicht noch option zu droppen 
+        numeric_df=self[numeric_cols]
+        imputer=KNNImputer(n_neighbors=n_neighbors)
+        imputed=imputer.fit_transform(numeric_df)
+        self[numeric_cols]=imputed 
+        return self
+    def numeric_cols(self,inplace=False):
+        numeric=self.astype(float,errors="ignore")
+        dtypes=numeric.dtypes
+        numeric_cols=dtypes[dtypes==float]
+        return numeric_cols.index
     def drop_nan_columns(self,max_allowed_na: float=1,inplace=False):
         na_bool=self.isna()
         for column_name in self.columns:
