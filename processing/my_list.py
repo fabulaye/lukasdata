@@ -6,8 +6,13 @@ def list_to_string(list):
         full_string=full_string+" "+string
     return full_string    
 
-def list_difference(list_1, list_2):
-    return [item for item in list_1 if item not in list_2]
+def list_difference(list_1, list_2,case_sensitive=True):
+    if case_sensitive==True:
+        return [item for item in list_1 if item not in list_2]
+    elif case_sensitive==False:
+        list_1=upper_list(list_1)
+        list_2=upper_list(list_2)
+        return [item for item in list_1 if item not in list_2]
 
 def rstrip_list(iterable):
     list=[]

@@ -2,6 +2,7 @@ setup.py
 datahandling/__init__.py
 datahandling/change_directory.py
 datahandling/change_encoding.py
+datahandling/convert_files.py
 datahandling/create_text_for_all_files_in_pdf_dir.py
 datahandling/del_jpg.py
 datahandling/dict_to_json.py
@@ -38,6 +39,7 @@ machine_learning/permutation_importance.py
 processing/__init__.py
 processing/create_mask.py
 processing/format_dates.py
+processing/format_numbers.py
 processing/my_df.py
 processing/my_list.py
 processing/my_string.py

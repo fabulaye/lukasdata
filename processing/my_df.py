@@ -47,6 +47,19 @@ class mydf(pd.DataFrame):
                     self.drop(columns=column_name,axis=1,inplace=True)
         if inplace==False:
             return df
+    def drop_unnamed_columns(self):
+        to_drop=[]
+        for column_name in self.columns:
+            if column_name.startswith("Unnamed"):
+                to_drop.append(column_name)
+        copy=self.drop(columns=to_drop)
+        return copy
+    def to_csv(self,filename):
+        exported=self.drop_unnamed_columns()
+        exported.to_csv(filename,index=False)
+    def to_excel(self,filename):
+        exported=self.drop_unnamed_columns()
+        exported.to_excel(filename,index=False)
 
 
 def concat_dfs(dataframes):
