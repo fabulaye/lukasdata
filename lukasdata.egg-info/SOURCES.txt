@@ -12,6 +12,7 @@ datahandling/read_txt.py
 datahandling/string_to_text.py
 debugging/__init__.py
 debugging/find_function.py
+debugging/import_module_from_path.py
 errorhandling/__init__.py
 errorhandling/custom_errors.py
 exploration/__init__.py
