@@ -3,18 +3,18 @@ import pandas as pd
 import numpy as np
 from sklearn.impute import KNNImputer
 
-from datahandling.change_directory import chdir_sql_requests
-
 import pandas as pd
 
 class mydf(pd.DataFrame):
     def __init__(self,df) -> None:
         super().__init__(df)
         self.dropped_columns=None
+        self.factorization_codes={}
     def to_numeric(self,inplace=False):
         non_num_cols=self.non_numeric_cols()
         if inplace==False:
             copy=self.drop(columns=non_num_cols)
+            copy=mydf(copy)
             return copy
         elif inplace==True:
             self.drop(columns=non_num_cols,inplace=True)
@@ -50,17 +50,37 @@ class mydf(pd.DataFrame):
     def drop_unnamed_columns(self):
         to_drop=[]
         for column_name in self.columns:
+            column_name=str(column_name)
             if column_name.startswith("Unnamed"):
                 to_drop.append(column_name)
         copy=self.drop(columns=to_drop)
         return copy
+    def copy(self):
+        new_df=self.copy()
+        new_df=mydf(new_df)
+        return new_df
+    def duplicate_col_names(self):
+        bools=self.columns.duplicated(keep=False)
+        summed=sum(bools)
+        return bools
     def to_csv(self,filename):
         exported=self.drop_unnamed_columns()
         exported.to_csv(filename,index=False)
     def to_excel(self,filename):
         exported=self.drop_unnamed_columns()
         exported.to_excel(filename,index=False)
+    
+    def factorize_series(self,series:pd.Series,factor_map=None):
+            uniques=pd.unique(series)
+            if factor_map==None:
+                factor_map={}
+                for index,unique_val in enumerate(uniques):
+                    factor_map[unique_val]=index
+            factorized_series=series.apply(lambda x: factor_map[x])
+            return factorized_series,factor_map
 
+
+    
 
 def concat_dfs(dataframes):
     concat_frames=[dataframe.reset_index(drop=True, inplace=True) for dataframe in dataframes]
@@ -84,7 +104,6 @@ def filter_numeric_columns(df):
     return new_df,dropped_columns
 
 def drop_observations(dataframe_path,column,min_count,output_name):
-    chdir_sql_requests()
     df=pd.read_csv(dataframe_path)
     company_counts = df[column].value_counts()
     companies_to_keep = company_counts[company_counts >= min_count].index
@@ -108,3 +127,10 @@ def na_counts(df : pd.DataFrame):
     counts=na_df.sum()
     true_rows=counts[counts>=1]
     return true_rows
+
+
+#financials_merge=pd.read_excel(r"C:\Users\lukas\Desktop\bachelor\data\treatment\financials_merge.xlsx")
+#financials_merge=mydf(financials_merge)
+#bools=financials_merge.duplicate_col_names()
+#print(bools)
+#print(list(financials_merge.columns))

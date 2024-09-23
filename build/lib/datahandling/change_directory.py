@@ -2,6 +2,20 @@ import os
 import getpass
 
 username = getpass.getuser()
+def root_search(directory):
+      root_list=[]
+      walk=os.walk(f"C:/Users/{username}/Desktop/bachelor")
+      for root,dirs,files in walk:
+            if root.endswith(directory):
+                  root_list.append(root)
+            if len(root_list)>1:
+                  print("to many roots, returned the first one")
+                  return root_list[0]
+      return root_list[0]
+
+def chdir_root_search(directory):
+      root_dir=root_search(directory)
+      os.chdir(root_dir)
 
 def chdir_bachelor():
       os.chdir(f"C:/Users/{username}/Desktop/bachelor")
@@ -14,12 +28,9 @@ def chdir_id():
 
 def chdir_sql():
       if username == "lukas":
-            os.chdir("E:\sql")
+            os.chdir(r"E:\sql")
       if username=="Lukas":
-            os.chdir("C:\sql")
-      
-def chdir_sql_requests():
-    os.chdir(f"C:/Users/{username}/Desktop/bachelor/data/sql_data")   
+            os.chdir(r"C:\sql")
 
 def chdir_pdf():
       os.chdir(f"C:/Users/{username}/Desktop/bachelor/pdf") 
@@ -38,3 +49,12 @@ def switch_dir(type):
             chdir_pdf()
       if type == "json":
             chdir_data()
+
+
+def chdir_search(directory):
+      walk=os.walk(f"C:/Users/{username}/Desktop/bachelor")
+      for root,dirs,files in walk:
+            if root.endswith(directory):
+                  print(root)
+                  os.chdir(root)
+

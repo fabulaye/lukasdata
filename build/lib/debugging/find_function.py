@@ -46,6 +46,6 @@ def find_function_usage_in_folder(folder_path, function_name):
 
 bachelor_path=r"C:\Users\lukas\Documents\GitHub\bachelor"
 
-usages = find_function_usage_in_folder(bachelor_path,"dict_to_json")
+usages = find_function_usage_in_folder(bachelor_path,"bmwi_request")
 
 
