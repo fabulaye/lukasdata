@@ -1,10 +1,11 @@
 import regex as re
 
-rechtsform_regex=re.compile(r"UG\s*\(haftungsbeschränkt\)|\bUG\b|\bAG\b|\beG\b|Unternehmensgesellschaft|\be\.k\b|GmbH & Co\. KG|\bmbH\b|PartG|GbR|PartG|StGes|\bSE\b|KGaA|Handelsgesellschaft mit beschränkter Haftung|Gesellschaft mit beschränkter Haftung|KG|\bGmbH\b",flags=re.I) #wir müssen es case sensitive machen, möglicherweise sind wir jetzt zu restriktiv 
+rechtsform_regex=re.compile(r"UG\s*\(haftungsbeschränkt\)|\bUG\b|\bAG\b|\beG\b|Unternehmensgesellschaft|\be\.k\b|GmbH & Co\. KG|\bmbH\b|PartG|GbR|PartG|StGes|\bSE\b|KGaA|Handelsgesellschaft mit beschränkter Haftung|Gesellschaft mit beschränkter Haftung|KG|\bGmbH\b|OHG",flags=re.I) #wir müssen es case sensitive machen, möglicherweise sind wir jetzt zu restriktiv 
 
+rechtsform_regex_bachelor_format=re.compile(r"UG_\(haftungsbeschränkt\)|(?<=_)UG|(?<=_)AG|(?<=_)eG|Unternehmensgesellschaft|\be\.k\b|GmbH_& Co\._KG|(?<=_)mbH|PartG|GbR|PartG|StGes|(?<=_)SE|(?<=_)KGaA|Handelsgesellschaft_mit_beschränkter_Haftung|Gesellschaft_mit_beschränkter_Haftung|(?<=_)KG|(?<=_)GmbH|(?<=_)OHG",flags=re.I)
 
 def return_rechtsform(company_name):
-      rechtsform=rechtsform_regex.findall(company_name)
+      rechtsform=rechtsform_regex_bachelor_format.findall(company_name)
       if rechtsform !=[]:
             rechtsform=rechtsform[0]
             return rechtsform

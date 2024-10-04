@@ -18,7 +18,7 @@ errorhandling/__init__.py
 errorhandling/custom_errors.py
 exploration/__init__.py
 exploration/count_nans.py
-exploration/desciptive_statistics.py
+exploration/mydf_statistics.py
 exploration/nan_heatmap.py
 lukasdata.egg-info/PKG-INFO
 lukasdata.egg-info/SOURCES.txt
@@ -40,10 +40,12 @@ processing/__init__.py
 processing/create_mask.py
 processing/format_dates.py
 processing/format_numbers.py
+processing/format_string.py
 processing/my_df.py
 processing/my_list.py
-processing/my_string.py
 processing/order_dict.py
 processing/order_dict_by_key.py
 processing/rechtsform.py
 processing/replace_umlaut.py
+wrapper/__init__.py
+wrapper/r_wrapper.py
