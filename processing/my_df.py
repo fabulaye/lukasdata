@@ -51,17 +51,19 @@ class mydf(pd.DataFrame):
             except:
                 print(f"{column_name} not a date")
         return pd.concat(datetime_cols,axis=1)
-    def drop_nan_columns(self,max_allowed_na: float=1,inplace=False):
-        na_bool=self.isna()
-        for column_name in self.columns:
-            na_percentage=na_bool[column_name].sum()/len(na_bool)
-            if na_percentage > max_allowed_na:
-                if inplace==False:
-                    df=df.drop(columns=column_name,axis=1)
-                if inplace==True:
-                    self.drop(columns=column_name,axis=1,inplace=True)
-        if inplace==False:
-            return df
+    def drop_nan_columns(self,max_allowed_na: float=1,inplace=False,return_dropped_colname=False):
+        df,colnames=drop_nan_columns(self,max_allowed_na,return_dropped_colname=True)
+        if inplace==True:
+            self.__init__(df)
+            if return_dropped_colname:
+                return colnames
+        elif inplace==False:
+            if return_dropped_colname:
+                return df,colnames
+            else:
+                return df
+
+        
     def to_dtype(self,map:dict):
         columns=[]
         for column_name,dtype in map.items():
@@ -151,16 +153,7 @@ def drop_observations(dataframe_path,column,min_count,output_name):
     df_filtered.to_csv(output_name)
     return df_filtered
 
-def drop_nan_columns(df : pd.DataFrame,max_allowed_na: float=1):
-    #should I copy here?
-    #bool_df=df.notna()
-    na_bool=df.isna()
-    for column_name in df.columns:
-        na_percentage=na_bool[column_name].sum()/len(na_bool)
-        if na_percentage > max_allowed_na:
-            df=df.drop(columns=column_name,axis=1)
-            #print(f"dropped {column_name}")
-    return df
+
 
 def na_counts(df : pd.DataFrame):
     na_df=pd.isna(df)
@@ -169,6 +162,19 @@ def na_counts(df : pd.DataFrame):
     return true_rows
 
 
+
+def drop_nan_columns(df,max_allowed_na: float=1,return_dropped_colname=False):
+    na_bool=df.isna()
+    dropped_columns=[]
+    for column_name in df.columns:
+        na_percentage=na_bool[column_name].sum()/len(na_bool)
+        if na_percentage > max_allowed_na:
+            df.drop(columns=column_name,axis=1,inplace=True)
+            dropped_columns.append(column_name)
+    if return_dropped_colname==False:
+        return df
+    else:
+        return df,dropped_columns
 #financials_merge=pd.read_excel(r"C:\Users\lukas\Desktop\bachelor\data\treatment\financials_merge.xlsx")
 #financials_merge=mydf(financials_merge)
 #bools=financials_merge.duplicate_col_names()
