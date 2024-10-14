@@ -51,8 +51,8 @@ class mydf(pd.DataFrame):
             except:
                 print(f"{column_name} not a date")
         return pd.concat(datetime_cols,axis=1)
-    def drop_nan_columns(self,max_allowed_na: float=1,inplace=False,return_dropped_colname=False):
-        df,colnames=drop_nan_columns(self,max_allowed_na,return_dropped_colname=True)
+    def drop_nan_columns(self,max_allowed_na: float=1,inplace=False,return_dropped_colname=False,exemptions=[]):
+        df,colnames=drop_nan_columns(self,max_allowed_na,return_dropped_colname=True,exemptions=exemptions)
         if inplace==True:
             self.__init__(df)
             if return_dropped_colname:
@@ -163,12 +163,12 @@ def na_counts(df : pd.DataFrame):
 
 
 
-def drop_nan_columns(df,max_allowed_na: float=1,return_dropped_colname=False):
+def drop_nan_columns(df,max_allowed_na: float=1,return_dropped_colname=False,exemptions=[]):
     na_bool=df.isna()
     dropped_columns=[]
     for column_name in df.columns:
         na_percentage=na_bool[column_name].sum()/len(na_bool)
-        if na_percentage > max_allowed_na:
+        if na_percentage > max_allowed_na and column_name not in exemptions:
             df.drop(columns=column_name,axis=1,inplace=True)
             dropped_columns.append(column_name)
     if return_dropped_colname==False:

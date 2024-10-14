@@ -2,15 +2,13 @@ import numpy as np
 from matplotlib import pyplot as plt
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.neighbors import KernelDensity
 import pandas as pd
-from sklearn.model_selection import GridSearchCV
 import seaborn as sns
 import os 
 from matplotlib import pyplot as plt
 import pandas as pd
 from datahandling.change_directory import chdir_root_search
-from datetime import datetime
+
 
 
 #design als attribute von einem df
@@ -43,7 +41,7 @@ class statistics():
         os.chdir(self.name)    
         for col in self.numeric_and_datetime:
             values=self.numeric_and_datetime[col]
-            values=np.log(values)
+            #values=np.log(values)
             bins=sturges_rule(values)
             plt.plot(label='Hist', color='blue',bins=bins)
             #range as a quantile maybe
@@ -51,8 +49,9 @@ class statistics():
             plt.title(f'{col}')
             plt.savefig(f"hist_{col}.png")
             plt.close()
-            
-    def create_kde_figs(self):
+
+        
+    def create_kde_figs(self,log=False):
         #os.chdir(r"C:\Users\Lukas\Desktop\bachelor\data\figures\kde")
         chdir_root_search("kde")
         if not os.path.exists(self.name):
@@ -61,7 +60,8 @@ class statistics():
         column_names=self.numeric_and_datetime.columns
         for column_name in column_names:
             data=self.numeric_and_datetime[column_name]
-            data=np.log(data)
+            if log:
+                data=np.log(data)
             sns.kdeplot(data, bw_method='scott')
     
     # Add labels and a title
@@ -71,17 +71,22 @@ class statistics():
             plt.savefig(f"kde_{column_name}.png")
             plt.close()
       
-    def corr_heatmap(self):
-        columns = [f'{self.df.columns[i]}' for i in range(self.ndarray.shape[1])]
-        print(self.ndarray.shape)
-        df = pd.DataFrame(self.ndarray, columns=columns)
+    def corr_heatmap(self,treshold):
+        #array=np.array(self.numeric_df)
+        #columns=self.numeric_df.columns
+        #columns = [f'{self.df.columns[i]}' for i in range(self.ndarray.shape[1])]
+        
+        #df = pd.DataFrame(array, columns=columns)
         # Compute correlation matrix
-        corr_matrix = df.corr()
+        corr_matrix = self.numeric_df.corr()
+        corr_matrix=corr_matrix[np.abs(corr_matrix)>=treshold]
         
         # Create a heatmap
-        plt.figure(figsize=(10, 8))
+        plt.figure(figsize=(8, 8))
         sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', linewidths=0.5)
+        #sns.heatmap(corr_matrix, cmap="viridis")
         plt.title('Correlation Heatmap')
+        #plt.plot()
         plt.show()
     def __str__(self):
         string=f"Df stats:{self.df_stats_df} \n Column stats:{self.column_stats_df}"
@@ -92,6 +97,7 @@ class statistics():
 class statistics_builder():
     def __init__(self,df,name,map=None) -> None:
         self.df=df
+
         self.name=name
         if map!=None:
             self.map=map
@@ -103,6 +109,7 @@ class statistics_builder():
         self.statistics=statistics()
     def build_statistics(self):
         self.statistics.df=self.df
+        self.statistics.numeric_df=self.df.to_numeric()
         self.statistics.name=self.name
         self.statistics.numeric_and_datetime=self.df.to_dtype(self.map)
         descrpition=self.statistics.df.describe()
@@ -112,8 +119,6 @@ class statistics_builder():
         self.statistics.max=descrpition.loc["max"]
         self.statistics.std=descrpition.loc["std"]
         self.statistics.nan_percentages=self.statistics.build_nan_percentages()
-
-
         self.statistics.column_stats_dict={"mean":self.statistics.mean,"min":self.statistics.min,"max":self.statistics.max,"std":self.statistics.std,"nan_percentages":self.statistics.nan_percentages}
         df=pd.DataFrame(self.statistics.column_stats_dict)
         self.statistics.column_stats_df=df[df.isna().sum(axis=1)<4]

@@ -41,7 +41,7 @@ class statistics():
         os.chdir(self.name)    
         for col in self.numeric_and_datetime:
             values=self.numeric_and_datetime[col]
-            values=np.log(values)
+            #values=np.log(values)
             bins=sturges_rule(values)
             plt.plot(label='Hist', color='blue',bins=bins)
             #range as a quantile maybe
@@ -49,8 +49,9 @@ class statistics():
             plt.title(f'{col}')
             plt.savefig(f"hist_{col}.png")
             plt.close()
-            
-    def create_kde_figs(self):
+
+        
+    def create_kde_figs(self,log=False):
         #os.chdir(r"C:\Users\Lukas\Desktop\bachelor\data\figures\kde")
         chdir_root_search("kde")
         if not os.path.exists(self.name):
@@ -59,7 +60,8 @@ class statistics():
         column_names=self.numeric_and_datetime.columns
         for column_name in column_names:
             data=self.numeric_and_datetime[column_name]
-            data=np.log(data)
+            if log:
+                data=np.log(data)
             sns.kdeplot(data, bw_method='scott')
     
     # Add labels and a title

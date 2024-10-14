@@ -32,8 +32,7 @@ def bachelor_format(string):
     string=unify_format(string,case_option="upper")
     return string
     
-def format_df(df:pd.DataFrame,rename_df={"idnr":"bvdid","name_native":"name","name_nat":"name"},string_format=bachelor_format):
+def format_df(df:pd.DataFrame,rename_df={"idnr":"bvdid","name_native":"name","name_nat":"name","nr_months":"months","repbas":"conscode"},string_format=bachelor_format):
     df=df.apply(lambda x: list(map(string_format,x)))
     df.rename(columns=rename_df,inplace=True)
-    #df.reset_index(inplace=True)
     return df
