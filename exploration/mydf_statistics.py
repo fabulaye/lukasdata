@@ -41,14 +41,21 @@ class statistics():
         os.chdir(self.name)    
         for col in self.numeric_and_datetime:
             values=self.numeric_and_datetime[col]
-            #values=np.log(values)
-            bins=sturges_rule(values)
-            plt.plot(label='Hist', color='blue',bins=bins)
-            #range as a quantile maybe
+            self.create_hist_fig(values,col,"Log")
+    def create_hist_fig(values,var_name,x_label,hist_object=None):
+        #values=np.log(values)
+        bins=sturges_rule(values)
+        plt.plot(label='Hist', color='blue',bins=bins)
+        #range as a quantile maybe
+        if hist_object==None:
             plt.hist(values) #len(np.unique(values))
-            plt.title(f'{col}')
-            plt.savefig(f"hist_{col}.png")
-            plt.close()
+        else:
+            hist_object
+        plt.title(f'{var_name} Distribution')
+        plt.xlabel(x_label, fontsize=12)
+        plt.ylabel("Counts", fontsize=12)
+        plt.savefig(f"hist_{var_name}.png")
+        plt.close()
 
         
     def create_kde_figs(self,log=False):
@@ -71,7 +78,7 @@ class statistics():
             plt.savefig(f"kde_{column_name}.png")
             plt.close()
       
-    def corr_heatmap(self,treshold):
+    def corr_heatmap(self):
         #array=np.array(self.numeric_df)
         #columns=self.numeric_df.columns
         #columns = [f'{self.df.columns[i]}' for i in range(self.ndarray.shape[1])]
@@ -79,7 +86,7 @@ class statistics():
         #df = pd.DataFrame(array, columns=columns)
         # Compute correlation matrix
         corr_matrix = self.numeric_df.corr()
-        corr_matrix=corr_matrix[np.abs(corr_matrix)>=treshold]
+        #corr_matrix=corr_matrix[np.abs(corr_matrix)>=treshold]
         
         # Create a heatmap
         plt.figure(figsize=(8, 8))
